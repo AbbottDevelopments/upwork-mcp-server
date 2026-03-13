@@ -3,4 +3,6 @@ build/
 dist/
 .env
 token.json
+**/token.json
 *.tsbuildinfo
+.claude/
