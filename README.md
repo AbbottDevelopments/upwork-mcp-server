@@ -10,11 +10,13 @@ This MCP server gives any MCP-compatible AI client (Claude Desktop, custom agent
 
 ## Features
 
-- **OAuth 2.0 authentication** — Secure token-based auth with automatic refresh and persistent storage
-- **GraphQL API client** — Typed queries and mutations against Upwork's GraphQL endpoint
-- **Rate limiting** — Built-in request throttling to stay within Upwork API limits
-- **Error handling** — Structured error types with actionable messages
-- **MCP standard** — Works with any MCP-compatible client out of the box
+- **15 agentic tools** covering the full freelancer workflow: discover → score → propose → manage → communicate
+- **OAuth 2.0 authentication** — Secure localhost callback flow with automatic token refresh
+- **Composite scoring** — `score_opportunity` rates jobs 0-100 across client quality, budget fit, competition, and skill match
+- **GraphQL + REST** — Uses Upwork's GraphQL API with REST fallbacks where needed
+- **Rate limiting** — Token bucket (10/sec, 300/min, 40K/day) with exponential backoff
+- **Structured errors** — Typed error categories with retryability flags and actionable messages
+- **Poll notifications** — Stateful diffing for new messages, proposal updates, and job matches
 
 ## Quick Start
 
@@ -70,6 +72,32 @@ Add to your Claude Desktop config (`claude_desktop_config.json`):
 claude mcp add upwork -- node /path/to/upwork-mcp-server/dist/index.js
 ```
 
+## Tools
+
+| Tool | Description |
+|------|-------------|
+| `search_jobs` | Search Upwork jobs with 15+ server-side filters |
+| `get_job_details` | Full job posting with embedded client intelligence |
+| `score_opportunity` | Composite 0-100 quality scoring with red/yellow/green flags |
+| `analyze_client` | Deep client risk assessment from a job posting |
+| `get_my_profile` | Your freelancer profile, skills, rate, and JSS |
+| `get_connects_balance` | Available connects before applying |
+| `search_freelancers` | Competitor research by skills, rate, JSS, country |
+| `track_proposals` | List proposals with status and outcomes |
+| `list_contracts` | Active/ended contracts with filtering |
+| `get_contract_details` | Full contract with milestones and earnings |
+| `manage_milestones` | Create, edit, or request approval on milestones |
+| `get_earnings_report` | Earnings and time reports by period or custom range |
+| `list_messages` | Message rooms with unread counts and previews |
+| `send_message` | Send a message in an existing room |
+| `poll_notifications` | Check for new messages, proposal updates, and job matches |
+
+## Architecture
+
+See [docs/architecture.md](docs/architecture.md) for diagrams showing how the system connects — also available as an [Excalidraw file](docs/architecture.excalidraw) for interactive editing.
+
+For implementation details, see the [technical specification](docs/tech-spec-upwork-mcp-server.md).
+
 ## Project Structure
 
 ```
@@ -105,7 +133,7 @@ npm run test:watch
 
 ## Status
 
-**Phase 1 complete** — OAuth flow, API client, rate limiting, and project scaffold are built and tested. MCP tool implementations (job search, proposal drafting, etc.) are in active development.
+**All 15 tools implemented** — OAuth flow, API client, rate limiting, and all four phases (scaffold, core tools, work management, communication) are built and reviewed. Ready for live API testing with Upwork credentials.
 
 ## Contributing
 
