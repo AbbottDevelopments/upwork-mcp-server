@@ -9,6 +9,13 @@ import type { UpworkConfig } from './common/types.js';
 import { TokenStore } from './auth/token-store.js';
 import { OAuthFlow } from './auth/oauth.js';
 import { ApiClient } from './common/api-client.js';
+import { register as registerJobs } from './operations/jobs.js';
+import { register as registerClients } from './operations/clients.js';
+import { register as registerFreelancers } from './operations/freelancers.js';
+import { register as registerProposals } from './operations/proposals.js';
+import { register as registerContracts } from './operations/contracts.js';
+import { register as registerEarnings } from './operations/earnings.js';
+import { register as registerMessages } from './operations/messages.js';
 
 // F17: Read version from package.json at startup
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -54,8 +61,14 @@ async function runServer(): Promise<void> {
     version: pkg.version,
   });
 
-  // Tool registrations will be added in Phase 2+
-  // Each operations/ file will export a register function that takes (server, apiClient)
+  // Register tools
+  registerJobs(server, apiClient);
+  registerClients(server, apiClient);
+  registerFreelancers(server, apiClient);
+  registerProposals(server, apiClient);
+  registerContracts(server, apiClient);
+  registerEarnings(server, apiClient);
+  registerMessages(server, apiClient);
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
