@@ -1,5 +1,7 @@
 # Upwork MCP Server
 
+> **⚠️ Archived / no longer maintained.** Upwork has released its own official MCP server. Please use that instead of this project. This repository is kept read-only for reference only.
+
 An open-source [Model Context Protocol](https://modelcontextprotocol.io/) server that connects AI agents to the Upwork API — enabling agentic job discovery, client intelligence, and freelancer workflow automation.
 
 ## Why This Exists
